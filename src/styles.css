@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-desk: #2a2f93;
+  --color-paper: #f6f1e6;
+  --color-paper-deep: #efe6d6;
+  --color-ink: #3c3328;
+  --color-muted: #6f655b;
+  --color-rule: #d5dced;
+  --color-sage: #2447d6;
+  --color-sage-soft: #e4e9ff;
+  --color-neon: #3d6bff;
+  --color-gold: #8a6a3b;
+  --shadow-neon: 0 0 18px rgb(61 107 255 / 0.7);
+  --font-display: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", serif;
+  --font-sans: "Source Sans 3", "Segoe UI", sans-serif;
+  --radius-page: 1.25rem;
+}
+
+html[data-reading="dyslexic"] body,
+html[data-reading="dyslexic"] .font-display {
+  font-family: "Open Sans", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+html[data-reading="dyslexic"] .font-display {
+  line-height: 1.25;
+}
+
+html[data-size="small"] {
+  font-size: 15px;
+}
+
+html[data-size="regular"] {
+  font-size: 16px;
+}
+
+html[data-size="large"] {
+  font-size: 18px;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html,
+  body {
+    background: var(--color-desk);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  ::selection {
+    background: #e4d3b0;
+    color: var(--color-ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

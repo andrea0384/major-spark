@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Major Spark",
+      "hasCanvas": false,
+      "bodyTextLen": 333,
+      "bodyTextHash": "1e10059739ef746699202aa093986fccb6dcf7d5ee1621acbb0706ce39154b2e",
+      "bodyTextPrefix": "Miami Dade College Major Spark notaminor.study A clear path from",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Major Spark",
+      "hasCanvas": false,
+      "bodyTextLen": 333,
+      "bodyTextHash": "1e10059739ef746699202aa093986fccb6dcf7d5ee1621acbb0706ce39154b2e",
+      "bodyTextPrefix": "Miami Dade College Major Spark notaminor.study A clear path from",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

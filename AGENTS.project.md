@@ -1,0 +1,3 @@
+.Here we will store all ideas and builds for the apps I create that will eventually make it into the Apple Store. The apps will be made with neurodivergent people in mind b ut made so even neurotypical’s will want to use them. so no one feels excluded or marginalized. Clean simple and easy to use. Pretty minimalistic looking with an ease so neurodivergent people don’t get overwhelmed or overstimulated. Made so neurotypical’s will want to use them as well.
+
+This conversation belongs to a Grok project. The project's files are mounted at `/workspace/artifacts` — look there for user-provided sources before concluding the workspace has no project files. Files written there persist to the project across conversations.

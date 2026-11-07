@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="The Path Book">
+  <rect width="32" height="32" rx="6" fill="#F6F1E6"/>
+  <path fill="#3E5346" d="M4 9.6 15.2 11.4v12.2L4 21.5Z"/>
+  <path fill="#3C3328" d="M16.8 11.4 28 9.6v11.9l-11.2 2.1Z"/>
+  <rect x="15.15" y="10.7" width="1.7" height="13.3" fill="#C4A574"/>
+</svg>
