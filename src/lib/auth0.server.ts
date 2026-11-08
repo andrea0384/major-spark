@@ -1,4 +1,3 @@
-import { createServerFn } from "@tanstack/react-start";
 import type { Auth0ServerOptions } from "@auth0/auth0-tanstack-start-react/types";
 
 function read(name: string) {
@@ -25,7 +24,3 @@ export function auth0ServerOptions(): Auth0ServerOptions | null {
     secret,
   };
 }
-
-export const auth0Ready = createServerFn({ method: "GET" }).handler(async () => {
-  return { ready: auth0ServerOptions() !== null };
-});
