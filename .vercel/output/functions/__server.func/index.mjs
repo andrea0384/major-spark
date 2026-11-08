@@ -1,5 +1,5 @@
 globalThis.__nitro_main__ = import.meta.url;
-import { i as toEventHandler, n as HTTPError, o as NodeResponse, r as defineLazyEventHandler, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
+import { i as toEventHandler, n as HTTPError, o as NodeResponse, r as defineLazyEventHandler, s as toNodeHandler, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 //#region node_modules/nitro/dist/runtime/internal/route-rules.mjs
@@ -640,23 +640,21 @@ function isrRouteRewrite(reqUrl, xNowRouteMatches) {
 	}
 }
 //#endregion
-//#region node_modules/nitro/dist/presets/vercel/runtime/vercel.web.mjs
+//#region node_modules/nitro/dist/presets/vercel/runtime/vercel.node.mjs
 var nitroApp = useNitroApp();
-var vercel_web_default = { async fetch(req, context) {
-	const isrURL = isrRouteRewrite(req.url, req.headers.get("x-now-route-matches"));
+var handler = toNodeHandler(nitroApp.fetch);
+async function nodeHandler(req, res) {
+	let ip;
+	Object.defineProperty(req.socket, "remoteAddress", { get() {
+		const h = req.headers["x-forwarded-for"];
+		return ip ??= h?.split?.(",").shift()?.trim();
+	} });
+	const isrURL = isrRouteRewrite(req.url, req.headers["x-now-route-matches"]);
 	if (isrURL) {
 		const { routeRules } = getRouteRules("", isrURL[0]);
-		if (routeRules?.isr) req = new Request(new URL(isrURL[0] + (isrURL[1] ? `?${isrURL[1]}` : ""), req.url).href, req);
+		if (routeRules?.isr) req.url = isrURL[0] + (isrURL[1] ? `?${isrURL[1]}` : "");
 	}
-	req.runtime ??= { name: "vercel" };
-	req.runtime.vercel = { context };
-	let ip;
-	Object.defineProperty(req, "ip", { get() {
-		const h = req.headers.get("x-forwarded-for");
-		return ip ??= h?.split(",").shift()?.trim();
-	} });
-	req.waitUntil = context?.waitUntil;
-	return nitroApp.fetch(req);
-} };
+	return handler(req, res);
+}
 //#endregion
-export { vercel_web_default as default };
+export { nodeHandler as default };

@@ -171,6 +171,11 @@ export default defineConfig(({ command, isPreview }) => ({
       ? [
           nitro({
             preset: "vercel",
+            // Node entry, not the web/edge format. Auth0 login (/auth/login)
+            // and the other server routes must run in the serverless function.
+            vercel: {
+              entryFormat: "node",
+            },
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.
