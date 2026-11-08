@@ -171,8 +171,7 @@ export default defineConfig(({ command, isPreview }) => ({
       ? [
           nitro({
             preset: "vercel",
-            // Node entry, not the web/edge format. Auth0 login (/auth/login)
-            // and the other server routes must run in the serverless function.
+            // Node serverless adapter so /auth/login stays on the Vercel function.
             vercel: {
               entryFormat: "node",
             },
