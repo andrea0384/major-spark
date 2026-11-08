@@ -5,17 +5,18 @@ function read(name: string) {
   return value || undefined;
 }
 
-export function auth0ServerOptions(): Auth0ServerOptions | null {
+/** Values come only from the server environment. Domain is resolved per request so Vercel can supply the public URL. */
+export function auth0ServerOptions(): Auth0ServerOptions {
   const domain = read("VITE_AUTH0_DOMAIN") ?? read("AUTH0_DOMAIN");
   const clientId = read("VITE_AUTH0_CLIENT_ID") ?? read("AUTH0_CLIENT_ID");
   const clientSecret = read("AUTH0_CLIENT_SECRET");
   const secret = read("AUTH0_SECRET");
-  if (!domain || !clientId || !clientSecret || !secret) return null;
-  if (Buffer.byteLength(secret, "utf8") < 32) return null;
+  const appBaseUrl = read("APP_BASE_URL");
   return {
-    domain: () => domain,
-    clientId,
-    clientSecret,
-    secret,
+    ...(domain ? { domain: () => domain } : {}),
+    ...(clientId ? { clientId } : {}),
+    ...(clientSecret ? { clientSecret } : {}),
+    ...(secret ? { secret } : {}),
+    ...(appBaseUrl ? { appBaseUrl } : {}),
   };
 }

@@ -3,14 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { auth0ServerOptions } from "@/lib/auth0-config";
 
 async function handle(request: Request) {
-  const options = auth0ServerOptions();
-  if (!options) {
-    return new Response("Sign-in is not configured yet.", {
-      status: 503,
-      headers: { "content-type": "text/plain; charset=utf-8" },
-    });
-  }
-  const handlers = auth0Handlers(auth0Server(options));
+  const handlers = auth0Handlers(auth0Server(auth0ServerOptions()));
   return request.method.toUpperCase() === "POST" ? handlers.POST() : handlers.GET();
 }
 
