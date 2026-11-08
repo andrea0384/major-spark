@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ApiAuthRouteImport } from './routes/api.auth'
 import { Route as ApiSpeakRouteImport } from './routes/api/speak'
 import { Route as AuthSplatRouteImport } from './routes/auth/$'
 
@@ -30,6 +31,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAuthRoute = ApiAuthRouteImport.update({
+  id: '/api/auth',
+  path: '/api/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiSpeakRoute = ApiSpeakRouteImport.update({
   id: '/api/speak',
   path: '/api/speak',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/login': typeof LoginRoute
+  '/api/auth': typeof ApiAuthRoute
   '/api/speak': typeof ApiSpeakRoute
   '/auth/$': typeof AuthSplatRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/login': typeof LoginRoute
+  '/api/auth': typeof ApiAuthRoute
   '/api/speak': typeof ApiSpeakRoute
   '/auth/$': typeof AuthSplatRoute
 }
@@ -60,21 +68,30 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/login': typeof LoginRoute
+  '/api/auth': typeof ApiAuthRoute
   '/api/speak': typeof ApiSpeakRoute
   '/auth/$': typeof AuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/login' | '/api/speak' | '/auth/$'
+  fullPaths: '/' | '/app' | '/login' | '/api/auth' | '/api/speak' | '/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/login' | '/api/speak' | '/auth/$'
-  id: '__root__' | '/' | '/app' | '/login' | '/api/speak' | '/auth/$'
+  to: '/' | '/app' | '/login' | '/api/auth' | '/api/speak' | '/auth/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/login'
+    | '/api/auth'
+    | '/api/speak'
+    | '/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRoute
   LoginRoute: typeof LoginRoute
+  ApiAuthRoute: typeof ApiAuthRoute
   ApiSpeakRoute: typeof ApiSpeakRoute
   AuthSplatRoute: typeof AuthSplatRoute
 }
@@ -102,6 +119,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/auth': {
+      id: '/api/auth'
+      path: '/api/auth'
+      fullPath: '/api/auth'
+      preLoaderRoute: typeof ApiAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/speak': {
       id: '/api/speak'
       path: '/api/speak'
@@ -123,6 +147,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRoute,
   LoginRoute: LoginRoute,
+  ApiAuthRoute: ApiAuthRoute,
   ApiSpeakRoute: ApiSpeakRoute,
   AuthSplatRoute: AuthSplatRoute,
 }

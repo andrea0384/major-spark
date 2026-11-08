@@ -7,6 +7,9 @@ export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>) => ({
     denied: search.denied === "school" ? ("school" as const) : undefined,
   }),
+  loader: async () => {
+    return { safeBuild: true };
+  },
   component: Landing,
 });
 
