@@ -41,9 +41,10 @@ function Landing() {
         ) : null}
         <button
           type="button"
-          onClick={() =>
-            login("/app", denied ? { authorizationParams: { prompt: "login" } } : undefined)
-          }
+          onClick={() => {
+            if (typeof window === "undefined") return;
+            login("/app", denied ? { authorizationParams: { prompt: "login" } } : undefined);
+          }}
           className="bg-transparent pl-[0.55em] font-sans text-2xl font-medium tracking-[0.55em] text-white uppercase"
           style={{
             textShadow: "0 0 6px #67e8f9, 0 0 14px #38bdf8, 0 0 28px #2563eb",
