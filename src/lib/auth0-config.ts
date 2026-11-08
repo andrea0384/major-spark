@@ -5,11 +5,6 @@ function read(name: string) {
   return value || undefined;
 }
 
-/**
- * Public Auth0 values may arrive as VITE_AUTH0_DOMAIN / VITE_AUTH0_CLIENT_ID.
- * The client secret and session secret are server-only and are never read
- * from a VITE_ variable.
- */
 export function auth0ServerOptions(): Auth0ServerOptions | null {
   const domain = read("VITE_AUTH0_DOMAIN") ?? read("AUTH0_DOMAIN");
   const clientId = read("VITE_AUTH0_CLIENT_ID") ?? read("AUTH0_CLIENT_ID");

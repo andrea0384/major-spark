@@ -7529,6 +7529,20 @@ var Route = class extends BaseRoute {
 function createRoute(options) {
 	return new Route(options);
 }
+/**
+* Creates a root route factory that requires a router context type.
+*
+* Use when your root route expects `context` to be provided to `createRouter`.
+* The returned function behaves like `createRootRoute` but enforces a context type.
+*
+* @returns A factory function to configure and return a root route.
+* @link https://tanstack.com/router/latest/docs/framework/react/api/router/createRootRouteWithContextFunction
+*/
+function createRootRouteWithContext() {
+	return (options) => {
+		return createRootRoute(options);
+	};
+}
 var RootRoute = class extends BaseRootRoute {
 	/**
 	* @deprecated `RootRoute` is now an internal implementation detail. Use `createRootRoute()` instead.
@@ -18238,4 +18252,4 @@ var renderRouterToStream = async ({ request, router, responseHeaders, children }
 	}
 };
 //#endregion
-export { getScriptPreloadAttrs as A, isDangerousProtocol as B, crossSerializeStream as C, toCrossJSONStream as D, toCrossJSONAsync as E, _getRenderedMatches as F, isNotFound as G, dehydrateSsrMatchId as H, executeRewriteInput as I, require_react as K, invariant as L, resolveManifestAssetLink as M, resolveManifestCssLink as N, createInlineCssPlaceholderAsset as O, waitForReason as P, createSieveCache as R, createStream as S, isStream as T, isRedirect as U, isPromise as V, rootRouteId as W, createFileRoute as _, isSsrResponse as a, require_jsx_runtime as b, stripSsrResponseBody as c, Scripts as d, HeadContent as f, lazyRouteComponent as g, Outlet as h, disposeSsrResponse as i, getStylesheetHref as j, createInlineCssStyleAsset as k, createHydrationScripts as l, createRouter as m, bindSsrResponseToRequest as n, normalizeSsrResponse as o, RouterProvider as p, defineHandlerCallback as r, replaceSsrResponse as s, renderRouterToStream as t, GLOBAL_TSR as u, createRootRoute as v, fromJSON as w, createPlugin as x, useRouter as y, decodePath as z };
+export { createInlineCssPlaceholderAsset as A, createSieveCache as B, createPlugin as C, isStream as D, fromJSON as E, resolveManifestCssLink as F, isRedirect as G, isDangerousProtocol as H, waitForReason as I, isNotFound as J, redirect as K, _getRenderedMatches as L, getScriptPreloadAttrs as M, getStylesheetHref as N, toCrossJSONAsync as O, resolveManifestAssetLink as P, executeRewriteInput as R, require_jsx_runtime as S, crossSerializeStream as T, isPromise as U, decodePath as V, dehydrateSsrMatchId as W, require_react as Y, createFileRoute as _, isSsrResponse as a, useNavigate as b, stripSsrResponseBody as c, Scripts as d, HeadContent as f, lazyRouteComponent as g, Outlet as h, disposeSsrResponse as i, createInlineCssStyleAsset as j, toCrossJSONStream as k, createHydrationScripts as l, createRouter as m, bindSsrResponseToRequest as n, normalizeSsrResponse as o, RouterProvider as p, rootRouteId as q, defineHandlerCallback as r, replaceSsrResponse as s, renderRouterToStream as t, GLOBAL_TSR as u, createRootRouteWithContext as v, createStream as w, useRouter as x, useRouteContext as y, invariant as z };

@@ -1,13 +1,20 @@
 import { n as __exportAll } from "../_runtime.mjs";
-import { A as getScriptPreloadAttrs, B as isDangerousProtocol, D as toCrossJSONStream, E as toCrossJSONAsync, F as _getRenderedMatches, G as isNotFound, I as executeRewriteInput, K as require_react, L as invariant, M as resolveManifestAssetLink, N as resolveManifestCssLink, P as waitForReason, U as isRedirect, V as isPromise, W as rootRouteId, a as isSsrResponse, b as require_jsx_runtime, c as stripSsrResponseBody, i as disposeSsrResponse, j as getStylesheetHref, n as bindSsrResponseToRequest, o as normalizeSsrResponse, p as RouterProvider, r as defineHandlerCallback, s as replaceSsrResponse, t as renderRouterToStream, w as fromJSON } from "../_libs/@tanstack/react-router+[...].mjs";
+import { E as fromJSON, F as resolveManifestCssLink, G as isRedirect, H as isDangerousProtocol, I as waitForReason, J as isNotFound, L as _getRenderedMatches, M as getScriptPreloadAttrs, N as getStylesheetHref, O as toCrossJSONAsync, P as resolveManifestAssetLink, R as executeRewriteInput, S as require_jsx_runtime, U as isPromise, Y as require_react, a as isSsrResponse, c as stripSsrResponseBody, i as disposeSsrResponse, k as toCrossJSONStream, n as bindSsrResponseToRequest, o as normalizeSsrResponse, p as RouterProvider, q as rootRouteId, r as defineHandlerCallback, s as replaceSsrResponse, t as renderRouterToStream, z as invariant } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as createServerHistory } from "../_libs/tanstack__history.mjs";
 import { a as defaultSerovalDeserializerPlugins, i as createRawStreamRPCPlugin, n as attachRouterServerSsrUtils, o as makeSerovalPlugin, r as getNormalizedURL, s as createSerializationAdapter, t as mergeHeaders } from "../_libs/@tanstack/router-core+[...].mjs";
-import { n as toResponse, t as H3Event } from "../_libs/h3-v2+rou3.mjs";
+import { a as toResponse, i as setCookie, n as deleteCookie, r as parseCookies, t as H3Event } from "../_libs/h3-v2+rou3.mjs";
 import { AsyncLocalStorage } from "node:async_hooks";
 //#region node_modules/.nitro/vite/services/ssr/index.js
 var ssr_exports = /* @__PURE__ */ __exportAll({
+	a: () => getRequest,
 	createServerEntry: () => createServerEntry,
-	default: () => server_default
+	default: () => server_default,
+	i: () => getCookies,
+	n: () => deleteCookie$1,
+	o: () => getResponseHeaders,
+	r: () => getCookie,
+	s: () => setCookie$1,
+	t: () => createMiddleware
 });
 require_react();
 var import_jsx_runtime = require_jsx_runtime();
@@ -86,6 +93,59 @@ function getH3Event() {
 	if (!event) throw new Error(`No StartEvent found in AsyncLocalStorage. Make sure you are using the function within the server runtime.`);
 	return event.h3Event;
 }
+function getRequest() {
+	return getH3Event().req;
+}
+function getResponseHeaders() {
+	return getH3Event().res.headers;
+}
+/**
+* Parse the request to get HTTP Cookie header string and return an object of all cookie name-value pairs.
+* @returns Object of cookie name-value pairs
+* ```ts
+* const cookies = getCookies()
+* ```
+*/
+function getCookies() {
+	const cookies = parseCookies(getH3Event());
+	const definedCookies = Object.create(null);
+	for (const [name, value] of Object.entries(cookies)) if (value !== void 0) definedCookies[name] = value;
+	return definedCookies;
+}
+/**
+* Get a cookie value by name.
+* @param name Name of the cookie to get
+* @returns {*} Value of the cookie (String or undefined)
+* ```ts
+* const authorization = getCookie('Authorization')
+* ```
+*/
+function getCookie(name) {
+	return getCookies()[name];
+}
+/**
+* Set a cookie value by name.
+* @param name Name of the cookie to set
+* @param value Value of the cookie to set
+* @param options {CookieSerializeOptions} Options for serializing the cookie
+* ```ts
+* setCookie('Authorization', '1234567')
+* ```
+*/
+function setCookie$1(name, value, options) {
+	setCookie(getH3Event(), name, value, options);
+}
+/**
+* Remove a cookie by name.
+* @param name Name of the cookie to delete
+* @param serializeOptions {CookieSerializeOptions} Cookie options
+* ```ts
+* deleteCookie('SessionId')
+* ```
+*/
+function deleteCookie$1(name, options) {
+	deleteCookie(getH3Event(), name, options);
+}
 function getResponse() {
 	return getH3Event().res;
 }
@@ -100,7 +160,7 @@ var HEADERS = { TSS_SHELL: "X-TSS_SHELL" };
 * the dev styles URL for route-scoped CSS collection.
 */
 async function getStartManifest(matchedRoutes) {
-	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-D_i-Tn9D.mjs");
+	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-D52L_5UD.mjs");
 	const startManifest = tsrStartManifest();
 	let routes = startManifest.routes;
 	routes[rootRouteId];
@@ -1341,8 +1401,8 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
 	const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-		import("./router-DjsfRxdY.mjs").then((n) => n.t),
-		import("./start-5Z2QO8AU.mjs"),
+		import("./router-Bo9Vaqh8.mjs").then((n) => n.t),
+		import("./start-BxjDhV0D.mjs"),
 		import("./empty-plugin-adapters-D9UWiqvJ.mjs")
 	]);
 	return {
@@ -1806,4 +1866,4 @@ function createServerEntry(entry) {
 }
 var server_default = createServerEntry({ fetch });
 //#endregion
-export { createServerEntry, server_default as default, ssr_exports as t };
+export { getRequest as a, ssr_exports as c, createServerEntry, server_default as default, getCookies as i, deleteCookie$1 as n, getResponseHeaders as o, getCookie as r, setCookie$1 as s, createMiddleware as t };
