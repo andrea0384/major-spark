@@ -1,5 +1,7 @@
+import { requireAuth } from "@auth0/auth0-tanstack-start-react/client";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, Settings } from "lucide-react";
+import { AuthButtons } from "@/components/auth-buttons";
 import { loadLocalProgress, saveLocalProgress, type PathSnapshot } from "@/lib/progress";
 import { pageFrame, useDevice } from "@/lib/device";
 import { PLANS, afterDegree, blockingPrereqs, courseNeeds, graduationLine, termsForPace, type StudyPace } from "@/lib/plans";
@@ -15,7 +17,10 @@ import {
   type WorkTiming,
 } from "@/lib/paths";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+  beforeLoad: requireAuth({ loginPath: "/login", returnTo: "/" }),
+  component: Home,
+});
 
 type Screen = "cover" | "careers" | "fit" | "matches" | "question" | "learn" | "path" | "list" | "plan";
 type TextSize = "small" | "regular" | "large";
@@ -433,6 +438,9 @@ function Home() {
               >
                 On
               </button>
+            </div>
+            <div className="mt-4">
+              <AuthButtons ready />
             </div>
             {career && (
               <div className="mt-4 flex flex-col gap-2 border-t border-rule pt-4">
