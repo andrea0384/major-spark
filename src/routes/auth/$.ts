@@ -1,9 +1,8 @@
 import { auth0Handlers, auth0Server } from "@auth0/auth0-tanstack-start-react/server";
 import { createFileRoute } from "@tanstack/react-router";
-import { auth0ServerOptions } from "@/lib/auth0-config";
 
 async function handle(request: Request) {
-  const handlers = auth0Handlers(auth0Server(auth0ServerOptions()));
+  const handlers = auth0Handlers(auth0Server());
   return request.method.toUpperCase() === "POST" ? handlers.POST() : handlers.GET();
 }
 

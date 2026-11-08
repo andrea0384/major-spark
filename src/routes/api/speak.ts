@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { env } from "@/lib/env.server";
 
 const VOICE = "EXAVITQu4vr4xnSDxMaL";
 
@@ -7,15 +6,14 @@ export const Route = createFileRoute("/api/speak")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const key = env("ELEVENLABS_API_KEY");
-        if (!key) return Response.json({ error: "missing-key" }, { status: 503 });
+        const key = process.env.ELEVENLABS_API_KEY;
         const body = await request.json().catch(() => null);
         const text = typeof body?.text === "string" ? body.text.replace(/\s+/g, " ").trim().slice(0, 800) : "";
         if (!text) return Response.json({ error: "empty" }, { status: 400 });
         const upstream = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${VOICE}`, {
           method: "POST",
           headers: {
-            "xi-api-key": key,
+            "xi-api-key": key ?? "",
             "Content-Type": "application/json",
             Accept: "audio/mpeg",
           },
